@@ -22,7 +22,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #ffffff; /* 全局白色背景 */
+            background-color: #ffffff;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -37,14 +37,13 @@
             overflow: hidden;
         }
 
-        /* 🖼️ 背景层：确保图片完整展示 */
         .app-bg-decoration {
             position: absolute;
             inset: 0;
             background-image: url('bg.jpg'); 
-            background-size: contain; /* 核心：确保图片完整显示，不裁剪 */
-            background-repeat: no-repeat; /* 不重复 */
-            background-position: center top; /* 图片置顶，对齐日历 */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center top;
             z-index: 0;
         }
 
@@ -54,12 +53,10 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            /* 调整遮罩：图片上方微透，下方纯白 */
             background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.9) 60%, #ffffff 100%);
             backdrop-filter: blur(8px);
         }
 
-        /* 顶部年月 */
         .calendar-header {
             padding: calc(45px + env(safe-area-inset-top)) 15px 10px 15px;
             text-align: center;
@@ -71,7 +68,6 @@
             letter-spacing: 1px;
         }
 
-        /* 日历网格 */
         .calendar-box { padding: 10px 15px 25px 15px; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
         .week-label { font-size: 11px; color: rgba(0,0,0,0.3); text-align: center; padding-bottom: 12px; font-weight: 800; }
@@ -89,7 +85,6 @@
             color: var(--text-main);
         }
 
-        /* ✨ 选中发光效果 */
         .day-cell.selected { 
             background: var(--accent-gold); 
             color: #000; 
@@ -101,7 +96,6 @@
         .day-cell.is-today { color: var(--accent-blue); font-weight: 900; }
         .status-dot { width: 4px; height: 4px; border-radius: 50%; position: absolute; bottom: 6px; background: var(--text-gray); }
 
-        /* 任务列表区 */
         .list-area { 
             flex: 1; 
             overflow-y: auto; 
@@ -111,23 +105,27 @@
             box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
         }
         
+        .view-title { font-size: 12px; color: var(--text-gray); font-weight: bold; margin-bottom: 15px; }
         .todo-card { display: flex; align-items: flex-start; padding: 18px; background: #f9f9fb; border-radius: 20px; margin-bottom: 12px; border: 1px solid #f0f0f2; }
         .checkbox { width: 22px; height: 22px; border: 2px solid #d2d2d7; border-radius: 8px; margin-right: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .checkbox.checked { background: var(--text-main); border-color: var(--text-main); }
         .checkbox.checked::after { content: '✓'; color: white; font-size: 13px; }
         .todo-text { font-size: 16px; color: var(--text-main); line-height: 1.4; }
         .todo-text.done { text-decoration: line-through; color: var(--text-gray); opacity: 0.5; }
+        .todo-tag { font-size: 10px; color: var(--text-gray); margin-top: 4px; display: block; opacity: 0.6; }
 
-        /* 底部导航 */
         .bottom-nav { height: 85px; background: #ffffff; border-top: 1px solid #f0f0f2; display: flex; justify-content: space-around; align-items: center; padding-bottom: calc(15px + env(safe-area-inset-bottom)); }
-        .nav-icon { font-size: 24px; border: none; background: none; color: #d2d2d7; }
-        .btn-plus { width: 56px; height: 56px; background: var(--text-main); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .nav-icon { font-size: 24px; border: none; background: none; color: #d2d2d7; cursor: pointer; transition: 0.3s; }
+        .nav-icon.active { color: var(--text-main); }
+        .btn-plus { width: 56px; height: 56px; background: var(--text-main); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); cursor: pointer; }
 
-        /* 弹窗样式 */
         .overlay { display: none; position: absolute; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; backdrop-filter: blur(5px); }
         .sheet { position: absolute; bottom: 0; width: 100%; background: #fff; border-radius: 30px 30px 0 0; padding: 30px 25px; box-sizing: border-box; padding-bottom: 50px; }
-        .input-box { width: 100%; border: none; font-size: 18px; outline: none; margin-bottom: 25px; background: #f5f5f7; padding: 18px; border-radius: 15px; box-sizing: border-box; }
-        .save-btn { background: var(--text-main); color: #fff; border: none; padding: 14px 35px; border-radius: 25px; font-weight: 600; }
+        .input-box { width: 100%; border: none; font-size: 18px; outline: none; margin-bottom: 20px; background: #f5f5f7; padding: 18px; border-radius: 15px; box-sizing: border-box; }
+        .editor-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .date-input-wrapper { display: flex; align-items: center; gap: 8px; }
+        .save-btn { background: var(--text-main); color: #fff; border: none; padding: 14px 35px; border-radius: 25px; font-weight: 600; cursor: pointer; }
+        .clear-date { font-size: 12px; color: var(--accent-blue); font-weight: bold; background: none; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -146,25 +144,28 @@
         </div>
 
         <div class="list-area">
-            <div style="font-size:12px; color:var(--text-gray); font-weight:bold; margin-bottom:15px;">当前日程</div>
+            <div class="view-title" id="viewTitle">当前日程</div>
             <div id="mainList"></div>
         </div>
 
         <div class="bottom-nav">
-            <button class="nav-icon" onclick="changeView('all')">📔</button>
+            <button class="nav-icon" id="nav-all" onclick="changeView('all')">📔</button>
             <div class="btn-plus" onclick="openEditor()">+</div>
-            <button class="nav-icon" onclick="changeView('done')">✅</button>
+            <button class="nav-icon" id="nav-done" onclick="changeView('done')">✅</button>
         </div>
     </div>
 
     <div class="overlay" id="editorOverlay">
         <div class="sheet">
             <input type="text" id="inputTask" class="input-box" placeholder="记录现在的想法...">
-            <div style="display:flex; justify-content: space-between; align-items:center;">
-                <input type="date" id="inputDate" style="border:1px solid #eee; padding:10px; border-radius:12px;">
+            <div class="editor-footer">
+                <div class="date-input-wrapper">
+                    <input type="date" id="inputDate" style="border:1px solid #eee; padding:10px; border-radius:12px; font-size: 12px;">
+                    <button class="clear-date" onclick="document.getElementById('inputDate').value=''">无日期灵感</button>
+                </div>
                 <button class="save-btn" onclick="saveTask()">保存</button>
             </div>
-            <button onclick="closeEditor()" style="width:100%; margin-top:25px; border:none; background:none; color:var(--text-gray);">关闭</button>
+            <button onclick="closeEditor()" style="width:100%; margin-top:25px; border:none; background:none; color:var(--text-gray); font-size: 14px;">关闭</button>
         </div>
     </div>
 </div>
@@ -184,47 +185,103 @@
 
     function render() {
         const grid = document.getElementById('daysGrid'); grid.innerHTML = '';
+        const todayStr = today.toISOString().split('T')[0];
+
+        // 渲染日历
         for(let i=1; i<=31; i++) {
             const dStr = `${today.getFullYear()}-${(today.getMonth()+1).toString().padStart(2,'0')}-${i.toString().padStart(2,'0')}`;
             const unfinished = tasks.some(t => t.date === dStr && !t.done);
             const cell = document.createElement('div');
-            cell.className = `day-cell ${selectedDate === dStr ? 'selected' : ''} ${today.toISOString().split('T')[0] === dStr ? 'is-today' : ''}`;
+            cell.className = `day-cell ${selectedDate === dStr ? 'selected' : ''} ${todayStr === dStr ? 'is-today' : ''}`;
             cell.innerHTML = i;
             if(unfinished) {
                 const dot = document.createElement('div');
                 dot.className = `status-dot`;
                 cell.appendChild(dot);
             }
-            cell.onclick = () => { selectedDate = dStr; currentView = 'daily'; render(); };
+            cell.onclick = () => { 
+                selectedDate = dStr; 
+                currentView = 'daily'; 
+                render(); 
+            };
             grid.appendChild(cell);
         }
 
+        // 渲染列表
         const listContainer = document.getElementById('mainList'); listContainer.innerHTML = '';
-        let filtered = currentView === 'daily' ? tasks.filter(t => t.date === selectedDate && !t.done) :
-                       currentView === 'all' ? tasks.filter(t => !t.done) : tasks.filter(t => t.done);
+        const viewTitle = document.getElementById('viewTitle');
+        
+        let filtered = [];
+        if (currentView === 'daily') {
+            viewTitle.innerText = "当前日程";
+            filtered = tasks.filter(t => t.date === selectedDate && !t.done);
+        } else if (currentView === 'all') {
+            viewTitle.innerText = "全部 / 灵感";
+            filtered = tasks.filter(t => !t.done);
+        } else {
+            viewTitle.innerText = "已完成";
+            filtered = tasks.filter(t => t.done);
+        }
+
+        // 切换图标高亮
+        document.getElementById('nav-all').classList.toggle('active', currentView === 'all');
+        document.getElementById('nav-done').classList.toggle('active', currentView === 'done');
         
         filtered.forEach(t => {
             const card = document.createElement('div'); card.className = 'todo-card';
+            // 长按删除功能
+            card.oncontextmenu = (e) => {
+                e.preventDefault();
+                if(confirm('确定要删除这条记录吗？')) {
+                    tasks = tasks.filter(x => x.id !== t.id);
+                    render();
+                }
+            };
             card.innerHTML = `
                 <div class="checkbox ${t.done?'checked':''}" onclick="toggleTask(${t.id})"></div>
                 <div class="todo-content">
                     <div class="todo-text ${t.done?'done':''}"> ${t.text} </div>
+                    <span class="todo-tag">${t.date ? '🗓️ ' + t.date : '💡 灵感'}</span>
                 </div>`;
             listContainer.appendChild(card);
         });
         localStorage.setItem('lorist_stardust_vfinal', JSON.stringify(tasks));
     }
 
-    function toggleTask(id) { const t = tasks.find(x => x.id === id); t.done = !t.done; render(); }
-    function changeView(v) { currentView = v; render(); }
-    function openEditor() { document.getElementById('editorOverlay').style.display = 'block'; document.getElementById('inputDate').value = selectedDate; }
-    function closeEditor() { document.getElementById('editorOverlay').style.display = 'none'; }
+    function toggleTask(id) { 
+        const t = tasks.find(x => x.id === id); 
+        t.done = !t.done; 
+        setTimeout(render, 300); // 延迟刷新，让用户看到勾选效果
+    }
+
+    function changeView(v) { 
+        if (currentView === v) currentView = 'daily'; // 再次点击取消高亮回到日程
+        else currentView = v; 
+        render(); 
+    }
+
+    function openEditor() { 
+        document.getElementById('editorOverlay').style.display = 'block'; 
+        document.getElementById('inputDate').value = selectedDate; 
+    }
+
+    function closeEditor() { 
+        document.getElementById('editorOverlay').style.display = 'none'; 
+    }
+
     function saveTask() {
         const text = document.getElementById('inputTask').value;
-        const date = document.getElementById('inputDate').value;
+        const date = document.getElementById('inputDate').value; // 如果点击了无日期，这里就是空字符串
         if(text.trim()) {
-            tasks.push({ id: Date.now(), text, date, done: false });
-            document.getElementById('inputTask').value = ''; closeEditor(); render();
+            tasks.push({ 
+                id: Date.now(), 
+                text: text, 
+                date: date, 
+                done: false 
+            });
+            document.getElementById('inputTask').value = ''; 
+            closeEditor(); 
+            render();
         }
     }
     init();
